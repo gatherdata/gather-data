@@ -1,0 +1,41 @@
+<persistence xmlns="http://java.sun.com/xml/ns/persistence" version="1.0">
+
+    <persistence-unit name="flatform-hsql-memory" transaction-type="RESOURCE_LOCAL">
+        <exclude-unlisted-classes>false</exclude-unlisted-classes>
+        <properties>
+            <property name="eclipselink.logging.level" value="INFO" />
+            <property name="eclipselink.target-database" value="org.eclipse.persistence.platform.database.HSQLPlatform" />
+            <property name="javax.persistence.jdbc.driver" value="org.hsqldb.jdbcDriver" />
+            <property name="javax.persistence.jdbc.url" value="jdbc:hsqldb:mem:mem:aname" />
+            <property name="javax.persistence.jdbc.user" value="sa" />
+            <property name="javax.persistence.jdbc.password" value="" />
+            <property name="eclipselink.ddl-generation" value="create-tables" />
+            <property name="eclipselink.ddl-generation.output-mode" value="database" />
+
+        </properties>
+
+        <class>org.gatherdata.data.dao.jpa.model.JpaFlatForm</class>
+        <class>org.gatherdata.data.dao.jpa.model.JpaRenderedValue</class>
+
+    </persistence-unit>
+
+    <persistence-unit name="flatform-hsql-server" transaction-type="RESOURCE_LOCAL">
+
+        <properties>
+            <property name="eclipselink.logging.level" value="INFO" />
+            <property name="eclipselink.target-database" value="org.eclipse.persistence.platform.database.HSQLPlatform" />
+            <property name="javax.persistence.jdbc.driver" value="org.hsqldb.jdbcDriver" />
+            <property name="javax.persistence.jdbc.url" value="jdbc:hsqldb:hsql://localhost/gather" />
+            <property name="javax.persistence.jdbc.user" value="sa" />
+            <property name="javax.persistence.jdbc.password" value="" />
+            <property name="eclipselink.ddl-generation" value="create-tables" />
+            <property name="eclipselink.ddl-generation.output-mode" value="database" />
+
+        </properties>
+
+        <class>org.gatherdata.data.dao.jpa.model.JpaFlatForm</class>
+        <class>org.gatherdata.data.dao.jpa.model.JpaRenderedValue</class>
+
+    </persistence-unit>
+
+</persistence>
