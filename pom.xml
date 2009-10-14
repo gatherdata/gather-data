@@ -48,6 +48,7 @@
         <module>org.gatherdata.data.transform.xml</module>
         <module>org.gatherdata.data.dao.jpa</module>
         <module>org.gatherdata.data.dao.db4o</module>
+        <module>org.gatherdata.data.features</module>
     </modules>
 
     <profiles>

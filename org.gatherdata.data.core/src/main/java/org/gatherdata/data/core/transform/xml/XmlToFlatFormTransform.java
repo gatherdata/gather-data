@@ -17,8 +17,8 @@ import javax.xml.parsers.SAXParser;
 import org.gatherdata.data.core.model.FlatForm;
 import org.gatherdata.data.core.model.impl.MutableFlatForm;
 import org.gatherdata.data.core.model.impl.MutableRenderedValue;
+import org.gatherdata.data.core.model.impl.ValueRenderer;
 import org.gatherdata.data.core.model.RenderedValue;
-import org.gatherdata.data.core.model.ValueRenderer;
 
 /**
  * Transforms XML content into a FlatForm.

@@ -6,6 +6,7 @@ import java.util.Random;
 
 import org.gatherdata.data.core.model.impl.MutableFlatForm;
 import org.gatherdata.data.core.model.impl.MutableRenderedValue;
+import org.gatherdata.data.core.model.impl.ValueRenderer;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormatter;
 import org.joda.time.format.ISODateTimeFormat;
