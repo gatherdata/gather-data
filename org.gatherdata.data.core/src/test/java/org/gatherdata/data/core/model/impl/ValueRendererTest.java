@@ -72,4 +72,26 @@ public class ValueRendererTest {
         
         assertThat(intoRendering.getValueAsInt(), is(EXPECTED_VALUE));
     }
+    
+    @Test
+    public void shouldRenderTrueForNonZeroIntValue() {
+        MutableRenderedValue intoRendering = new MutableRenderedValue();
+        final Integer INITIAL_VALUE = (Integer) 42;
+        final Boolean EXPECTED_VALUE = (Boolean) true;
+        
+        ValueRenderer.render(INITIAL_VALUE.toString(), intoRendering);
+        
+        assertThat(intoRendering.getValueAsBoolean(), is(EXPECTED_VALUE));
+    }
+
+    @Test
+    public void shouldRenderFalseForZeroIntValue() {
+        MutableRenderedValue intoRendering = new MutableRenderedValue();
+        final Integer INITIAL_VALUE = (Integer) 0;
+        final Boolean EXPECTED_VALUE = (Boolean) false;
+        
+        ValueRenderer.render(INITIAL_VALUE.toString(), intoRendering);
+        
+        assertThat(intoRendering.getValueAsBoolean(), is(EXPECTED_VALUE));
+    }
 }

@@ -13,15 +13,11 @@ public class ValueRenderer {
 
     static final Pattern INT_VALUE_PATTERN = Pattern.compile("\\D*(\\d*).*");
 
-    private static Logger log = Logger.getLogger(ValueRenderer.class.getName());
-
     public static void render(String value, MutableRenderedValue intoRendering) {
         intoRendering.setValueAsString(value);
 
-        log.info("render(" + value + ")");
         DateTime valueAsDateTime = renderAsDateTime(value);
         if (valueAsDateTime != null) {
-            log.info("parsed datetime: " + valueAsDateTime);
             intoRendering.setValueAsDateTime(valueAsDateTime);
         }
 
@@ -46,13 +42,14 @@ public class ValueRenderer {
                     intoRendering.setValueAsFloat(valueAsInt.floatValue());
                 }
             } else if (valueAsFloat != null) {
+                valueAsInt = valueAsFloat.intValue();
                 intoRendering.setValueAsInt(valueAsFloat.intValue());
             }
         } catch (NumberFormatException nfe) {
             ;
         }
 
-        intoRendering.setValueAsBoolean((Boolean.parseBoolean(value) || (valueAsFloat != 0)));
+        intoRendering.setValueAsBoolean((Boolean.parseBoolean(value) || (valueAsInt != 0)));
     }
 
     public static DateTime renderAsDateTime(String value) {
