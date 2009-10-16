@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<features>     
+    <feature name="gather-data.core" version="${gather-data.version}">
+        <bundle>mvn:org.gatherdata.gather-data/org.gatherdata.data.core/${gather-data.version}</bundle>
+    </feature>
+
+    <feature name="gather-data.felix" version="${gather-data.version}">
+        <bundle>mvn:org.gatherdata.gather-data/org.gatherdata.data.command/${gather-data.version}</bundle>
+    </feature>
+
+    <feature name="gather-data.jpa" version="${gather-data.version}">
+        <feature>gather-data.core</feature>
+        <bundle>mvn:org.gatherdata.gather-data/org.gatherdata.data.dao.jpa/${gather-data.version}</bundle>
+    </feature>
+
+    <feature name="gather-data.db4o" version="${gather-data.version}">
+        <feature>gather-data.core</feature>
+        <bundle>mvn:org.gatherdata.gather-data/org.gatherdata.data.dao.db4o/${gather-data.version}</bundle>
+    </feature>
+</features>
