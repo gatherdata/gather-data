@@ -1,0 +1,146 @@
+<h:html xmlns:h="http://www.w3.org/1999/xhtml"
+        xmlns="http://www.w3.org/2002/xforms"
+	  xmlns:ev="http://www.w3.org/2001/xml-events"
+	  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	  xmlns:jr="http://openrosa.org/javarosa">
+<h:head>
+    <h:title>IDSR: Individual Case Report</h:title>
+    <model>
+	<instance>
+		<IDSRCase xmlns="http://gatherdata.org/who/idsr_case">
+			<Meta>
+				<DeviceID />
+				<TimeStart />
+				<TimeEnd />
+			</Meta>
+		
+			<DateOfReport/>
+			<Reporter/>
+			
+			<Location/>
+			<LocationCode/>
+			
+			<DiseaseDiagnosis/>
+
+			<Case>
+				<CaseNumber/>
+				<Symptoms/>
+				<DateOfOnset/>
+				<Confirmed/>
+				<Lab/>
+				<Immunisation/>
+				<Status/>
+			</Case>
+			
+			<Patient>
+				<Name/>
+				<Sex/>
+				<Age/>
+				<Village/>
+				<Parish/>
+			</Patient>
+		
+			<ActionsTaken/>
+			<Remarks/>
+			<Reporter/>
+
+		</IDSRCase>
+	</instance>
+
+	<bind id="hidden1" nodeset="/IDSRCase/Meta/DeviceID" type="xsd:string" jr:preload="property" jr:preloadParams="DeviceID" />
+	<bind id="hidden2" nodeset="/IDSRCase/Meta/TimeStart" type="xsd:dateTime" jr:preload="timestamp" jr:preloadParams="start" />
+	<bind id="hidden3" nodeset="/IDSRCase/Meta/TimeEnd" type="xsd:dateTime" jr:preload="timestamp" jr:preloadParams="end" />
+
+	<bind id="prop1" nodeset="/IDSRCase/Location" type="xsd:string" jr:preload="property" jr:preloadParams="location" />
+	<bind id="prop2" nodeset="/IDSRCase/LocationCode" type="xsd:string" jr:preload="property" jr:preloadParams="location-code" />
+		
+	<bind id="a" nodeset="/IDSRCase/DateOfReport" type="xsd:date" jr:preload="date" jr:preloadParams="today" />
+	<bind id="p1a" nodeset="/IDSRCase/Case/CaseNumber" type="xsd:int"/>
+	<bind id="p1b" nodeset="/IDSRCase/Patient/Age" type="xsd:int"/>
+	<bind id="p1c" nodeset="/IDSRCase/Case/DateOfOnset" type="xsd:date"/>
+    </model>
+</h:head>			
+<h:body>
+
+       <input bind="a">
+           <label>Date of Report</label>
+       </input>
+
+       <input bind="prop1">
+           <label>Area</label>
+       </input>
+       <input bind="prop2">
+           <label>Area Code</label>
+       </input>
+
+ 	<select1 ref="/IDSRCase/DiseaseDiagnosis">
+		<label>Disease diagnosis</label>
+		<item><label>Acute Flaccid Paralysis</label><value>Acute Flaccid Paralysis</value></item>
+		<item><label>Animal Bites</label><value>Animal Bites</value></item>
+		<item><label>Dysentery</label><value>Dysentery</value></item>
+		<item><label>Malaria</label><value>Malaria</value></item>
+		<item><label>Meningitis</label><value>Meningitis</value></item>
+		<item><label>more...</label><value>more...</value></item>
+	</select1>
+
+	<select1 ref="/IDSRCase/DiseaseDiagnosis" relevant="/IDSRCase/DiseaseDiagnosis='more...'">
+		<label>Disease diagnosis (cont'd)</label>
+		<item><label>Rabies</label><value>Rabies</value></item>
+		<item><label>Cholera</label><value>Cholera</value></item>
+		<item><label>Guinea Worm</label><value>Guinea Worm</value></item>
+		<item><label>Measles</label><value>Measles</value></item>
+		<item><label>Neonatal Tetanus</label><value>Neonatal Tetanus</value></item>
+		<item><label>Plague</label><value>Plague</value></item>
+		<item><label>Yellow Fever</label><value>Yellow Fever</value></item>
+		<item><label>Other Viral Heamorrhagic Fevers</label><value>Other Viral Heamorrhagic Fevers</value></item>
+		<item><label>Other Emerging Infectious Diseases</label><value>Other Emerging Infectious Diseases</value></item>
+		<item><label>Other</label><value>Other</value></item>
+	</select1>
+
+		<input bind="p1a"><label>Case #</label></input>
+		<input ref="/IDSRCase/Case/Symptoms"><label>Case: Symptoms and Signs</label></input>
+		<input bind="p1c"><label>Case: Date of Onset</label></input>
+		<select1 ref="/IDSRCase/Case/Confirmed"><label>Case: Clinically Confirmed?</label>
+			<item><label>Yes</label><value>y</value></item>
+			<item><label>No</label><value>n</value></item>
+		</select1>
+		<select1 ref="/IDSRCase/Case/Lab"><label>Case: Lab Results Used in Diagnosis?</label>
+			<item><label>Yes</label><value>y</value></item>
+			<item><label>No</label><value>n</value></item>
+		</select1>
+		<select1 ref="/IDSRCase/Case/Immunisation"><label>Case: Immunised?</label>
+			<item><label>Yes</label><value>y</value></item>
+			<item><label>No</label><value>n</value></item>
+			<item><label>Unknown</label><value>u</value></item>
+		</select1>
+		<select1 ref="/IDSRCase/Case/Status">
+		<label>Case: Status</label>
+			<item><label>Healthy</label><value>Healthy</value></item>
+			<item><label>Improving</label><value>Improving</value></item>
+			<item><label>Stable</label><value>Stable</value></item>
+			<item><label>Declining</label><value>Declining</value></item>
+			<item><label>Deceased (because of disease)</label><value>Deceased</value></item>
+		</select1>
+		
+		<input ref="/IDSRCase/Patient/Name"><label>Patient Name</label></input>
+		<select1 ref="/IDSRCase/Patient/Sex"><label>Patient Sex</label>
+			<item><label>Male</label><value>m</value></item>
+			<item><label>Female</label><value>f</value></item>
+		</select1>
+		<input bind="p1b"><label>Patient: Age</label></input>
+		<input ref="/IDSRCase/Patient/Village"><label>Patient: Village</label></input>
+		<input ref="/IDSRCase/Patient/Parish"><label>Patient: Parish</label></input>
+
+		<input ref="/IDSRCase/ActionsTaken">
+			<label>Actions taken in response to disease</label>
+		</input>
+		<input ref="/IDSRCase/Remarks">
+			<label>Remarks</label>
+		</input>
+		<input ref="/IDSRCase/Reporter">
+			<label>Reporter</label>
+		</input>
+</h:body>
+</h:html>
+
+

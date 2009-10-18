@@ -1,0 +1,111 @@
+<h:html xmlns:h="http://www.w3.org/1999/xhtml"
+        xmlns="http://www.w3.org/2002/xforms"
+	xmlns:ev="http://www.w3.org/2001/xml-events"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:jr="http://openrosa.org/javarosa">
+<h:head>
+    <h:title>IDSR: Disease Summary</h:title>
+    <model>
+	<instance>
+			<IDSRSummary xmlns="http://gatherdata.org/who/idsr_summary">
+				<Meta>
+					<DeviceID />
+					<TimeStart />
+					<TimeEnd />
+				</Meta>
+			
+				<DateOfReport/>
+				<FromDate/>
+				<ToDate/>
+				
+				<Location/>
+				<LocationCode/>
+				
+				<DiseaseDiagnosis/>
+				
+				<CasesConfirmed/>
+				<DeathsReported/>
+							
+				<ActionsTaken/>
+				<Remarks/>
+				<Reporter/>
+				
+			</IDSRSummary>		
+			
+	</instance>
+
+		<bind id="hidden1" nodeset="/IDSRSummary/Meta/DeviceID" type="xsd:string" jr:preload="property" jr:preloadParams="DeviceID" />
+		<bind id="hidden2" nodeset="/IDSRSummary/Meta/TimeStart" type="xsd:dateTime" jr:preload="timestamp" jr:preloadParams="start" />	
+		<bind id="hidden3" nodeset="/IDSRSummary/Meta/TimeEnd" type="xsd:dateTime" jr:preload="timestamp" jr:preloadParams="end" />
+
+		<bind id="prop1" nodeset="/IDSRCase/Location" type="xsd:string" jr:preload="property" jr:preloadParams="location" />
+		<bind id="prop2" nodeset="/IDSRCase/LocationCode" type="xsd:string" jr:preload="property" jr:preloadParams="location-code" />
+
+		<bind id="a" nodeset="/IDSRSummary/DateOfReport" type="xsd:date" jr:preload="date" jr:preloadParams="today" />
+		<bind id="b" nodeset="/IDSRSummary/FromDate" type="xsd:date" jr:preload="date" jr:preloadParams="prevperiod-week-mon-head" />
+		<bind id="c" nodeset="/IDSRSummary/ToDate" type="xsd:date" jr:preload="date" jr:preloadParams="prevperiod-week-mon-tail" />
+		<bind id="d" nodeset="/IDSRSummary/CasesConfirmed" type="xsd:int"/>
+		<bind id="e" nodeset="/IDSRSummary/DeathsReported" type="xsd:int"/>
+
+    </model>
+</h:head>			
+<h:body>
+        <input bind="a">
+     	    <label>Date of Report</label>
+        </input>
+       <input bind="b">
+            <label>For period</label>
+        </input>
+        <input bind="c">
+            <label>To...</label>
+        </input>
+
+        <input bind="prop1">
+            <label>Location</label>
+        </input>
+        <input bind="prop2">
+            <label>Location Code</label>
+        </input>
+
+ 	<select1 ref="/IDSRSummary/DiseaseDiagnosis">
+		<label>Disease diagnosis</label>
+		<item><label>Acute Flaccid Paralysis</label><value>Acute Flaccid Paralysis</value></item>
+		<item><label>Animal Bites</label><value>Animal Bites</value></item>
+		<item><label>Dysentery</label><value>Dysentery</value></item>
+		<item><label>Malaria</label><value>Malaria</value></item>
+		<item><label>Meningitis</label><value>Meningitis</value></item>
+		<item><label>more...</label><value>more...</value></item>
+	</select1>
+
+	<select1 ref="/IDSRSummary/DiseaseDiagnosis" relevant="/IDSRSummary/DiseaseDiagnosis='more...'">
+		<label>Disease diagnosis (cont'd)</label>
+		<item><label>Rabies</label><value>Rabies</value></item>
+		<item><label>Cholera</label><value>Cholera</value></item>
+		<item><label>Guinea Worm</label><value>Guinea Worm</value></item>
+		<item><label>Measles</label><value>Measles</value></item>
+		<item><label>Neonatal Tetanus</label><value>Neonatal Tetanus</value></item>
+		<item><label>Plague</label><value>Plague</value></item>
+		<item><label>Yellow Fever</label><value>Yellow Fever</value></item>
+		<item><label>Other Viral Heamorrhagic Fevers</label><value>Other Viral Heamorrhagic Fevers</value></item>
+		<item><label>Other Emerging Infectious Diseases</label><value>Other Emerging Infectious Diseases</value></item>
+		<item><label>Other</label><value>Other</value></item>
+	</select1>
+
+	<input bind="d"><label>Confirmed Cases During Period</label></input>
+	<input bind="e"><label>Reported Deaths During Period</label></input>
+
+	<input ref="/IDSRSummary/ActionsTaken">
+		<label>Actions taken</label>
+	</input>
+	<input ref="/IDSRSummary/Remarks">
+		<label>Remarks</label>
+	</input>
+	<input ref="/IDSRSummary/Reporter">
+		<label>Reporter</label>
+	</input>
+
+</h:body>
+</h:html>
+
+
+

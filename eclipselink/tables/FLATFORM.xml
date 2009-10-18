@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<table>
+   <short-name>FLATFORM</short-name>
+   <columns>
+      <column>
+         <name>CBID</name>
+         <type>VARCHAR</type>
+      </column>
+      <column>
+         <name>DATE_STORED</name>
+         <type>DATE</type>
+      </column>
+      <column>
+         <name>ID</name>
+         <type>INTEGER</type>
+         <unique>true</unique>
+         <primary-key>true</primary-key>
+      </column>
+      <column>
+         <name>NAMESPACE</name>
+         <type>VARCHAR</type>
+      </column>
+   </columns>
+</table>
