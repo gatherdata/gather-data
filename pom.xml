@@ -46,8 +46,6 @@
         <module>org.gatherdata.data.core</module>
         <module>org.gatherdata.data.command</module>
         <module>org.gatherdata.data.transform.xml</module>
-        <module>org.gatherdata.data.dao.jpa</module>
-        <module>org.gatherdata.data.dao.db4o</module>
         <module>org.gatherdata.data.features</module>
     </modules>
 
@@ -65,6 +63,13 @@
                 <!-- redundant, but harmless dao.provision... -->
                 <dao.provision>mvn:org.gatherdata.gather-data/org.gatherdata.data.dao.jpa/${gather-data.version}</dao.provision>
             </properties>
+            <repositories>
+                <repository>
+                    <id>eclipselink.snapshots</id>
+                    <name>EclipseLink Snapshots</name>
+                    <url>http://spout.ussg.indiana.edu/eclipse/rt/eclipselink/maven.repo/</url>
+                </repository>
+            </repositories> 
         </profile>
         <profile>
             <id>db4o</id>
@@ -81,11 +86,28 @@
 
     <repositories>
         <repository>
-            <id>eclipselink.snapshots</id>
-            <name>EclipseLink Snapshots</name>
-            <url>http://spout.ussg.indiana.edu/eclipse/rt/eclipselink/maven.repo/</url>
+            <id>gather.releases</id>
+            <name>GATHERdata Releases</name>
+            <url>http://repository.gatherdata.org/content/repositories/releases</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
         </repository>
-    </repositories>
+        <repository>
+            <id>gather.snapshots</id>
+            <name>GATHERdata Snapshots</name>
+            <url>http://repository.gatherdata.org/content/repositories/snapshots</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+   </repositories>
 
     <build>
         <plugins>
@@ -135,5 +157,18 @@
             </plugin>
         </plugins>
     </build>
+
+    <distributionManagement>
+        <repository>
+            <id>gather.releases</id>
+            <name>GATHERdata Releases</name>
+            <url>http://repository.gatherdata.org/content/repositories/releases</url>
+        </repository>
+        <snapshotRepository>
+            <id>gather.snapshots</id>
+            <name>GATHERdata Snapshots</name>
+            <url>http://repository.gatherdata.org/content/repositories/snapshots</url>
+        </snapshotRepository>
+    </distributionManagement>
 
 </project>
