@@ -72,6 +72,11 @@ public class JpaFlatFormDaoTest extends BaseFlatFormDaoTest {
         tx.commit();
     }
     
+    @Override
+    protected void rollbackTransaction() {
+    	tx.rollback();
+    }
+    
     /**
      * Must have at least one test here to convince Eclipse that
      * there are tests to run.

@@ -60,9 +60,17 @@ public class JpaFlatFormDao implements FlatFormDao {
         newTransaction.begin();
         this.currentTransaction = newTransaction;
     }
+    
+    public void rollbackTransaction() {
+    	currentTransaction.rollback();
+    }
 
     public void endTransaction() {
         currentTransaction.commit();
+    }
+    
+    public void clear() {
+    	getEntityManager().clear();
     }
 
     public EntityManager getEntityManager() {
@@ -115,10 +123,8 @@ public class JpaFlatFormDao implements FlatFormDao {
     }
     
     public void remove(URI archiveIdentifiedBy) {
-        beginTransaction();
         FlatForm entityToRemove = get(archiveIdentifiedBy);
         getEntityManager().remove(entityToRemove);
-        endTransaction();
     }
 
     public FlatForm save(FlatForm entityToSave) {
