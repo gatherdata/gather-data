@@ -1,0 +1,8 @@
+#-----------------------------------------------------------------
+# Use this file to add customized Bnd instructions for the bundle
+#-----------------------------------------------------------------
+
+Bundle-Activator: ${bundle.namespace}.osgi.OSGiActivator
+Import-Package: org.eclipse.persistence.platform.database,org.xml.sax,org.eclipse.persistence.internal.dynamic, *
+DynamicImport-Package: org.hsqldb
+

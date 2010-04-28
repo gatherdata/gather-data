@@ -1,0 +1,29 @@
+<persistence xmlns="http://java.sun.com/xml/ns/persistence"
+  version="1.0">
+
+  <persistence-unit name="gather-dynamic-table">
+
+    <class>org.gatherdata.data.dynamic.model.DynamicTableSchemaImpl</class>
+    <class>org.gatherdata.data.dynamic.model.DynamicFieldSchemaImpl</class>
+
+    <properties>
+      <property name="eclipselink.target-database"
+        value="org.eclipse.persistence.platform.database.HSQLPlatform" />
+      <property name="javax.persistence.jdbc.driver" value="org.hsqldb.jdbcDriver" />
+      <property name="javax.persistence.jdbc.url" value="jdbc:hsqldb:hsql://localhost/gather" />
+      <property name="javax.persistence.jdbc.user" value="sa" />
+      <property name="javax.persistence.jdbc.password" value="" />
+      <property name="eclipselink.ddl-generation" value="drop-and-create-tables" />
+      <property name="eclipselink.ddl-generation.output-mode" value="database" />
+
+      <!-- Logging -->
+      <property name="eclipselink.logging.level" value="FINE" />
+      <property name="eclipselink.logging.timestamp" value="false" />
+      <property name="eclipselink.logging.session" value="false" />
+      <property name="eclipselink.logging.thread" value="false" />
+
+    </properties>
+
+  </persistence-unit>
+
+</persistence>

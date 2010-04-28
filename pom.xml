@@ -1,177 +1,179 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
-    <modelVersion>4.0.0</modelVersion>
-    <groupId>org.gatherdata</groupId>
-    <artifactId>gather-data</artifactId>
-    <version>1.0-SNAPSHOT</version>
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.gatherdata</groupId>
+  <artifactId>gather-data</artifactId>
+  <version>1.0-SNAPSHOT</version>
 
-    <name>gather-data (OSGi project)</name>
+  <name>gather-data (OSGi project)</name>
 
-    <description>Flexible data storage.</description>
+  <description>Flexible data storage.</description>
 
-    <properties>
-      <!-- build properties -->
-      <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-      <org.osgi.service.http.port>8080</org.osgi.service.http.port>
-      <org.osgi.service.http.port.secure>8443</org.osgi.service.http.port.secure>
-      <!-- gather versions -->
-      <gather-commons.version>1.0.0</gather-commons.version>
-      <gather-data.version>1.0-SNAPSHOT</gather-data.version>
-      <!-- 3rd party versions -->
-      <peaberry.version>1.1.1</peaberry.version>
-      <guice.version>2.0</guice.version>
-      <aopalliance.version>1.0_1</aopalliance.version>
-      <geronimo.jta.version>1.1.1</geronimo.jta.version>
-      <eclipselink.version>2.0.0</eclipselink.version>
-      <joda-time.version>1.5.2_1</joda-time.version>
-      <junit.version>4.5</junit.version>
-      <hamcrest.version>1.1</hamcrest.version>
-      <easymock.version>2.3.0</easymock.version>
-      <pax.exam.version>1.0.0</pax.exam.version>
-      <pax-logging.version>1.3.0</pax-logging.version>
-      <commons-lang.version>2.4</commons-lang.version>
-      <commons-vfs.version>1.0_1</commons-vfs.version>
-      <commons-codec.version>1.2_1</commons-codec.version>
-      <neo4j.neo.version>1.0-b9</neo4j.neo.version>
-      <neo4j.shell.version>1.0-b9</neo4j.shell.version>
-      <neo4j.index-util.version>0.7</neo4j.index-util.version>
-      <neo4j.remote-neo.version>0.2</neo4j.remote-neo.version>
-      <neo4j.neo-utils.version>1.0-b9</neo4j.neo-utils.version>
-      <neo4j.neo-component-commons.version>0.2</neo4j.neo-component-commons.version>
-      <db4o.version>7.11</db4o.version>
-    </properties>
+  <properties>
+    <!-- karaf config -->
+    <karaf.version>1.2.0</karaf.version>
+    <karaf.startRemoteShell>false</karaf.startRemoteShell>
+    <karaf.startLocalConsole>true</karaf.startLocalConsole>
+    <karaf.systemBundlesStartLevel>0</karaf.systemBundlesStartLevel>
+    <!-- build properties -->
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <org.osgi.service.http.port>8080</org.osgi.service.http.port>
+    <org.osgi.service.http.port.secure>8443</org.osgi.service.http.port.secure>
+    <!-- gather versions -->
+    <gather-commons.version>1.0.1-SNAPSHOT</gather-commons.version>
+    <gather-data.version>1.0-SNAPSHOT</gather-data.version>
+    <!-- 3rd party versions -->
+    <peaberry.version>1.1.1</peaberry.version>
+    <guice.version>2.0</guice.version>
+    <aopalliance.version>1.0_1</aopalliance.version>
+    <geronimo.jta.version>1.1.1</geronimo.jta.version>
+    <eclipselink.version>2.0.0</eclipselink.version>
+    <joda-time.version>1.5.2_1</joda-time.version>
+    <junit.version>4.5</junit.version>
+    <hamcrest.version>1.1</hamcrest.version>
+    <easymock.version>2.3.0</easymock.version>
+    <pax.exam.version>1.0.0</pax.exam.version>
+    <pax-logging.version>1.3.0</pax-logging.version>
+    <commons-lang.version>2.4</commons-lang.version>
+    <commons-vfs.version>1.0_1</commons-vfs.version>
+    <commons-codec.version>1.2_1</commons-codec.version>
+    <db4o.version>7.11</db4o.version>
+  </properties>
 
-    <packaging>pom</packaging>
+  <packaging>pom</packaging>
 
-    <modules>
-        <module>poms</module>
-        <module>org.gatherdata.data.core</module>
-        <module>org.gatherdata.data.command</module>
-        <module>org.gatherdata.data.transform.xml</module>
-        <module>org.gatherdata.data.features</module>
-    </modules>
+  <modules>
+    <module>poms</module>
+    <module>org.gatherdata.data.core</module>
+    <module>org.gatherdata.data.command</module>
+    <module>org.gatherdata.data.transform.xml</module>
+    <module>org.gatherdata.data.features</module>
+    <module>org.gatherdata.data.pu.hsql</module>
+    <module>org.gatherdata.data.dynamic</module>
+  </modules>
 
-    <profiles>
-        <profile>
-            <id>jpa</id>
-            <modules>
-                <module>org.gatherdata.data.dao.jpa</module>
-            </modules>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-            <properties>
-                <dao.gather-dependencies>eclipselink,gather-hsqldb</dao.gather-dependencies>
-                <!-- redundant, but harmless dao.provision... -->
-                <dao.provision>mvn:org.gatherdata.gather-data/org.gatherdata.data.dao.jpa/${gather-data.version}</dao.provision>
-            </properties>
-            <repositories>
-                <repository>
-                    <id>eclipselink.snapshots</id>
-                    <name>EclipseLink Snapshots</name>
-                    <url>http://spout.ussg.indiana.edu/eclipse/rt/eclipselink/maven.repo/</url>
-                </repository>
-            </repositories> 
-        </profile>
-        <profile>
-            <id>db4o</id>
-           <modules>
-                <module>org.gatherdata.data.core</module>
-                <module>org.gatherdata.data.dao.db4o</module>
-            </modules>
-            <properties>
-                <dao.gather-dependencies>gather-commons.db4o</dao.gather-dependencies>
-                <dao.provision>mvn:org.gatherdata.gather-data/org.gatherdata.data.dao.db4o/${gather-data.version}</dao.provision>
-            </properties>
-        </profile>
-    </profiles>
-
-    <repositories>
+  <profiles>
+    <profile>
+      <id>jpa</id>
+      <modules>
+        <module>org.gatherdata.data.dao.jpa</module>
+      </modules>
+      <activation>
+        <activeByDefault>true</activeByDefault>
+      </activation>
+      <properties>
+        <dao.gather-dependencies>eclipselink,gather-hsqldb</dao.gather-dependencies>
+        <!-- redundant, but harmless dao.provision... -->
+        <dao.provision>mvn:org.gatherdata.gather-data/org.gatherdata.data.dao.jpa/${gather-data.version}</dao.provision>
+      </properties>
+      <repositories>
         <repository>
-            <id>gather.releases</id>
-            <name>GATHERdata Releases</name>
-            <url>http://repository.gatherdata.org/content/repositories/releases</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
+          <id>eclipselink.snapshots</id>
+          <name>EclipseLink Snapshots</name>
+          <url>http://spout.ussg.indiana.edu/eclipse/rt/eclipselink/maven.repo/</url>
         </repository>
-        <repository>
-            <id>gather.snapshots</id>
-            <name>GATHERdata Snapshots</name>
-            <url>http://repository.gatherdata.org/content/repositories/snapshots</url>
-            <releases>
-                <enabled>false</enabled>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </repository>
-   </repositories>
+      </repositories>
+    </profile>
+    <profile>
+      <id>db4o</id>
+      <modules>
+        <module>org.gatherdata.data.dao.db4o</module>
+      </modules>
+      <properties>
+        <dao.gather-dependencies>gather-commons.db4o</dao.gather-dependencies>
+        <dao.provision>mvn:org.gatherdata.gather-data/org.gatherdata.data.dao.db4o/${gather-data.version}</dao.provision>
+      </properties>
+    </profile>
+  </profiles>
 
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.ops4j</groupId>
-                <artifactId>maven-pax-plugin</artifactId>
-                <version>1.4</version>
-                <configuration>
-                    <framework>felix</framework>
-                    <profiles>config,log</profiles>
-                    <!-- noDependencies=true to force all deployabled bundles to be part of a feature -->
-                    <noDependencies>true</noDependencies>
-                    <provision>
-                        <param>scan-features:mvn:org.gatherdata.gather-commons/org.gatherdata.commons.features/${gather-commons.version}/xml/features!/gather-core,${dao.gather-dependencies}</param>
-                        <param>${dao.provision}</param>
-                    </provision>
-                </configuration>
-                <executions></executions>
-            </plugin>
-            <plugin>
-                <inherited>false</inherited>
-                <groupId>com.google.code.maven-license-plugin</groupId>
-                <artifactId>maven-license-plugin</artifactId>
-                <version>1.4.0</version>
-                <configuration>
-                    <header>${basedir}/etc/header.txt</header>
-                    <failIfMissing>true</failIfMissing>
-                    <aggregate>true</aggregate>
-                    <properties>
-                        <owner>AED</owner>
-                        <year>2009</year>
-                        <email>info@gatherdata.org</email>
-                    </properties>
-                    <includes>
-                        <include>**/src/**/*.java</include>
-                    </includes>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>check-headers</id>
-                        <phase>verify</phase>
-                        <goals>
-                            <goal>check</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-    </build>
+  <repositories>
+    <repository>
+      <id>gather.releases</id>
+      <name>GATHERdata Releases</name>
+      <url>http://repository.gatherdata.org/content/repositories/releases</url>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+    </repository>
+    <repository>
+      <id>gather.snapshots</id>
+      <name>GATHERdata Snapshots</name>
+      <url>http://repository.gatherdata.org/content/repositories/snapshots</url>
+      <releases>
+        <enabled>false</enabled>
+      </releases>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+    </repository>
+  </repositories>
 
-    <distributionManagement>
-        <repository>
-            <id>gather.releases</id>
-            <name>GATHERdata Releases</name>
-            <url>http://repository.gatherdata.org/content/repositories/releases</url>
-        </repository>
-        <snapshotRepository>
-            <id>gather.snapshots</id>
-            <name>GATHERdata Snapshots</name>
-            <url>http://repository.gatherdata.org/content/repositories/snapshots</url>
-        </snapshotRepository>
-    </distributionManagement>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.ops4j</groupId>
+        <artifactId>maven-pax-plugin</artifactId>
+        <version>1.4</version>
+        <configuration>
+          <framework>felix</framework>
+          <args>etc/runner.args</args>
+          <profiles>config,log</profiles>
+          <!-- noDependencies=true to force all deployabled bundles to be part of a feature -->
+          <noDependencies>true</noDependencies>
+          <provision>
+            <param>scan-features:mvn:org.gatherdata.gather-commons/org.gatherdata.commons.features/${gather-commons.version}/xml/features!/karaf-shell</param>
+            <param>scan-features:mvn:org.gatherdata.gather-commons/org.gatherdata.commons.features/${gather-commons.version}/xml/features!/gather-core,${dao.gather-dependencies}</param>
+            <param>${dao.provision}</param>
+          </provision>
+        </configuration>
+        <executions></executions>
+      </plugin>
+      <plugin>
+        <inherited>false</inherited>
+        <groupId>com.google.code.maven-license-plugin</groupId>
+        <artifactId>maven-license-plugin</artifactId>
+        <version>1.4.0</version>
+        <configuration>
+          <header>${basedir}/etc/header.txt</header>
+          <failIfMissing>true</failIfMissing>
+          <aggregate>true</aggregate>
+          <properties>
+            <owner>AED</owner>
+            <year>2009</year>
+            <email>info@gatherdata.org</email>
+          </properties>
+          <includes>
+            <include>**/src/**/*.java</include>
+          </includes>
+        </configuration>
+        <executions>
+          <execution>
+            <id>check-headers</id>
+            <phase>verify</phase>
+            <goals>
+              <goal>check</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+
+  <distributionManagement>
+    <repository>
+      <id>gather.releases</id>
+      <name>GATHERdata Releases</name>
+      <url>http://repository.gatherdata.org/content/repositories/releases</url>
+    </repository>
+    <snapshotRepository>
+      <id>gather.snapshots</id>
+      <name>GATHERdata Snapshots</name>
+      <url>http://repository.gatherdata.org/content/repositories/snapshots</url>
+    </snapshotRepository>
+  </distributionManagement>
 
 </project>
