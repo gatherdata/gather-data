@@ -1,7 +1,11 @@
 <persistence xmlns="http://java.sun.com/xml/ns/persistence" version="1.0">
 
     <persistence-unit name="flatform-test" transaction-type="RESOURCE_LOCAL">
-        <exclude-unlisted-classes>false</exclude-unlisted-classes>
+        <exclude-unlisted-classes>true</exclude-unlisted-classes>
+
+        <class>org.gatherdata.data.dao.jpa.model.JpaFlatForm</class>
+        <class>org.gatherdata.data.dao.jpa.model.JpaRenderedValue</class>
+        
         <properties>
             <property name="eclipselink.logging.level" value="INFO" />
             <property name="eclipselink.target-database" value="org.eclipse.persistence.platform.database.HSQLPlatform" />
@@ -13,9 +17,6 @@
             <property name="eclipselink.ddl-generation.output-mode" value="database" />
 
         </properties>
-
-        <class>org.gatherdata.data.dao.jpa.model.JpaFlatForm</class>
-        <class>org.gatherdata.data.dao.jpa.model.JpaRenderedValue</class>
 
     </persistence-unit>
 

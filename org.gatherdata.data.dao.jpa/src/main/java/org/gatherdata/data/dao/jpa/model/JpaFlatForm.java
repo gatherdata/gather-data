@@ -69,7 +69,6 @@ public class JpaFlatForm extends MutableFlatForm implements FlatForm {
 	@Transient
 	private URI lazyNamespace;
 
-
 	@OneToMany (mappedBy = "form", cascade = CascadeType.ALL)
 	private List<JpaRenderedValue> jpaValues = new ArrayList<JpaRenderedValue>();
 

@@ -11,9 +11,12 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+import static org.gatherdata.commons.junit.ContainsAll.containsAll;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.not;
 
 import java.net.URI;
 import java.util.ArrayList;
@@ -30,6 +33,7 @@ import javax.persistence.spi.PersistenceProvider;
 import org.gatherdata.data.core.model.FlatForm;
 import org.gatherdata.data.core.spi.BaseFlatFormDaoTest;
 import org.gatherdata.data.core.spi.FlatFormDao;
+import org.gatherdata.data.dao.jpa.model.JpaFlatForm;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -93,5 +97,5 @@ public class JpaFlatFormDaoTest extends BaseFlatFormDaoTest {
     public void shouldHavePersistenceProviderInjected() {
         assertThat(persistenceProvider, notNullValue());
     }
-    
+        
 }
