@@ -127,8 +127,8 @@ public class JpaFlatFormDao implements FlatFormDao {
         getEntityManager().remove(entityToRemove);
     }
 
-    public FlatForm save(FlatForm entityToSave) {
-        FlatForm savedEntity = null;
+    public JpaFlatForm save(FlatForm entityToSave) {
+        JpaFlatForm savedEntity = null;
         if (entityToSave != null) {
             JpaFlatForm saveableEntity = new JpaFlatForm().copy(entityToSave);
             saveableEntity.selfIdentify();
