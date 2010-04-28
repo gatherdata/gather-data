@@ -203,14 +203,7 @@ public class JpaFlatForm extends MutableFlatForm implements FlatForm {
             setUid(selfId);
         }
         return uid;
-    }
-
-    @Override
-    public String toString() {
-        return "FlatForm [uid=" + uidAsString + ", dateCreated=" + ((dateCreatedAsCalendar != null) ? getDateCreated().toString() : "null")
-                + ", namespace=" + namespaceAsString + "]";
-    }
-    
+    }    
     
 
 }

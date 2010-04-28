@@ -215,5 +215,13 @@ public class MutableRenderedValue implements RenderedValue {
 		}
 		return this;
 	}
+    @Override
+    public String toString() {
+        return "RenderedValue [path=" + path + ", tag=" + tag + ", valueAsString=" + valueAsString
+                + ", valueAsDateTime=" + getValueAsDateTime()
+                + ", valueAsBoolean=" + valueAsBoolean
+                + ", valueAsFloat=" + valueAsFloat
+                + ", valueAsInt=" + valueAsInt + "]";
+    }
 
 }

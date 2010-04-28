@@ -30,7 +30,10 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import javax.persistence.spi.PersistenceProvider;
 
+import org.apache.commons.lang.ObjectUtils;
+import org.apache.commons.lang.StringUtils;
 import org.gatherdata.data.core.model.FlatForm;
+import org.gatherdata.data.core.model.RenderedValue;
 import org.gatherdata.data.core.spi.BaseFlatFormDaoTest;
 import org.gatherdata.data.core.spi.FlatFormDao;
 import org.gatherdata.data.dao.jpa.model.JpaFlatForm;
@@ -98,4 +101,52 @@ public class JpaFlatFormDaoTest extends BaseFlatFormDaoTest {
         assertThat(persistenceProvider, notNullValue());
     }
         
+    @Test
+    public void shouldGetAllSavedEntities() {
+        final int EXPECTED_NUMBER_OF_ENTITIES = new Random().nextInt(100);
+        List<FlatForm> entitiesToSave = new ArrayList<FlatForm>();
+        
+        beginTransaction();
+        FlatForm previousForm = null;
+        for (int i=0; i< EXPECTED_NUMBER_OF_ENTITIES; i++) {
+        	FlatForm entityToSave = createMockEntity();
+            entitiesToSave.add(entityToSave);
+            FlatForm savedEntity = dao.save(entityToSave);
+            
+            int daoCount = dao.getCount();
+            if (i<daoCount) {
+            	previousForm = savedEntity;
+            } else {
+            	System.err.println("Duplicate at #" + (i+1));
+            	printEntity("previous", previousForm);
+            	printEntity("saved", savedEntity);
+            	printEntity("mocked", entityToSave);
+            	break;
+            }
+        }
+        endTransaction();
+        
+        assertThat(dao.getCount(), equalTo(EXPECTED_NUMBER_OF_ENTITIES));
+        
+        beginTransaction();
+        Iterable<FlatForm> allEntitiesList = (Iterable<FlatForm>) dao.getAll();
+        assertThat(allEntitiesList, containsAll(entitiesToSave));
+        endTransaction();
+    }
+
+
+	private void printEntity(String title, FlatForm entity) {
+		System.out.println("Entity \"" + title + "\"");
+		System.out.println(ObjectUtils.toString(entity.getUid()) + 
+				ObjectUtils.toString(entity.getNamespace()) + 
+				ObjectUtils.toString(entity.getDateCreated()));
+		for (RenderedValue rv : entity.getValues()) {
+			System.out.println("\t" +
+					rv.getPath() +
+					rv.getTag() +
+					rv.getValueAsString());
+		}
+	}
+
+    
 }

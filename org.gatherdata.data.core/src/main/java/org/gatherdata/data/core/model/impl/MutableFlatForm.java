@@ -83,5 +83,11 @@ public class MutableFlatForm extends MutableEntity implements FlatForm {
         }
         return this;
     }
+    
+    @Override
+    public String toString() {
+        return "FlatForm [uid=" + getUid() + ", dateCreated=" + getDateCreated()
+                + ", namespace=" + getNamespace() + "]";
+    }
 
 }
