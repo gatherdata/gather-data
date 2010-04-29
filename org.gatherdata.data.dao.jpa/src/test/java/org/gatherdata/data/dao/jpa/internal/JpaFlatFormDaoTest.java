@@ -108,6 +108,7 @@ public class JpaFlatFormDaoTest extends BaseFlatFormDaoTest {
         
         beginTransaction();
         FlatForm previousForm = null;
+        FlatForm previousMock = null;
         for (int i=0; i< EXPECTED_NUMBER_OF_ENTITIES; i++) {
         	FlatForm entityToSave = createMockEntity();
             entitiesToSave.add(entityToSave);
@@ -116,11 +117,13 @@ public class JpaFlatFormDaoTest extends BaseFlatFormDaoTest {
             int daoCount = dao.getCount();
             if (i<daoCount) {
             	previousForm = savedEntity;
+            	previousMock = entityToSave;
             } else {
             	System.err.println("Duplicate at #" + (i+1));
-            	printEntity("previous", previousForm);
-            	printEntity("saved", savedEntity);
             	printEntity("mocked", entityToSave);
+            	printEntity("previous mocked", previousMock);
+            	printEntity("saved", savedEntity);
+            	printEntity("previous saved", previousForm);
             	break;
             }
         }
@@ -134,16 +137,15 @@ public class JpaFlatFormDaoTest extends BaseFlatFormDaoTest {
         endTransaction();
     }
 
-
 	private void printEntity(String title, FlatForm entity) {
 		System.out.println("Entity \"" + title + "\"");
-		System.out.println(ObjectUtils.toString(entity.getUid()) + 
-				ObjectUtils.toString(entity.getNamespace()) + 
+		System.out.println(ObjectUtils.toString(entity.getUid()) + "; " +
+				ObjectUtils.toString(entity.getNamespace()) + "; " +
 				ObjectUtils.toString(entity.getDateCreated()));
 		for (RenderedValue rv : entity.getValues()) {
-			System.out.println("\t" +
-					rv.getPath() +
-					rv.getTag() +
+			System.out.println("\t" + "; " +
+					rv.getPath() + "; " +
+					rv.getTag() + "; " +
 					rv.getValueAsString());
 		}
 	}
