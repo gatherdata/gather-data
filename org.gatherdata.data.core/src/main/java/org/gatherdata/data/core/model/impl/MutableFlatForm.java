@@ -12,14 +12,17 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.gatherdata.commons.model.impl.MutableEntity;
+import org.gatherdata.commons.net.CbidFactory;
 import org.gatherdata.data.core.model.FlatForm;
 import org.gatherdata.data.core.model.RenderedValue;
+import org.joda.time.DateTime;
 
 /**
  * A FlatForm stores all form values without any hierarchy.
@@ -83,7 +86,25 @@ public class MutableFlatForm extends MutableEntity implements FlatForm {
         }
         return this;
     }
-    
+	
+	@Override
+    public URI selfIdentify() {
+        if (getDateCreated() == null) {
+            setDateCreated(new DateTime());
+        }
+        if (this.getUid() == null) {
+        	StringBuffer formContent = new StringBuffer();
+        	formContent.append(FlatForm.class.getSimpleName());
+        	formContent.append(getDateCreated());
+        	for (RenderedValue rv : getValues()) {
+        		formContent.append(rv.toString());
+        	}
+            URI selfId = CbidFactory.createCbid(formContent.toString());
+            setUid(selfId);
+        }
+        return uid;
+	}
+	
     @Override
     public String toString() {
         return "FlatForm [uid=" + getUid() + ", dateCreated=" + getDateCreated()

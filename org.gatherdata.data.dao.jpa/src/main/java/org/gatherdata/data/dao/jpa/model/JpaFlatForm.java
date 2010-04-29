@@ -186,24 +186,7 @@ public class JpaFlatForm extends MutableFlatForm implements FlatForm {
 			}
 		}
 		return this;
-	}
-	
-    public URI selfIdentify() {
-        if (dateCreatedAsCalendar == null) {
-            dateCreatedAsCalendar = GregorianCalendar.getInstance();
-        }
-        if (this.getUid() == null) {
-        	StringBuffer formContent = new StringBuffer();
-        	formContent.append(FlatForm.class.getSimpleName());
-        	formContent.append(getDateCreated());
-        	for (RenderedValue rv : getValues()) {
-        		formContent.append(rv.toString());
-        	}
-            URI selfId = CbidFactory.createCbid(formContent.toString());
-            setUid(selfId);
-        }
-        return uid;
-    }    
+	}  
     
 
 }
