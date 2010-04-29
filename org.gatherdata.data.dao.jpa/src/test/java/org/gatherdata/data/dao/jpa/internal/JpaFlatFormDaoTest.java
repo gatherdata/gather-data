@@ -21,8 +21,10 @@ import static org.hamcrest.CoreMatchers.not;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -101,6 +103,21 @@ public class JpaFlatFormDaoTest extends BaseFlatFormDaoTest {
         assertThat(persistenceProvider, notNullValue());
     }
         
+    @Test 
+    public void shouldProduceUniqueIdsForMockEntities() {
+    	final int EXPECTED_NUMBER_OF_ENTITIES = 10000;
+    	Set<URI> uniqueURI = new HashSet<URI>();
+    	Set<Integer> uniqueHashcodes = new HashSet<Integer>();
+    	Set<FlatForm> uniqueEntities = new HashSet<FlatForm>();
+    	for (int i=0; i<EXPECTED_NUMBER_OF_ENTITIES; i++) {
+    		FlatForm mocked = createMockEntity();
+    		assertTrue("duplicate URI #" + (i+1) + " " + mocked, uniqueURI.add(mocked.getUid()));
+    		assertTrue("duplicate hashcode #" + (i+1) + " " + mocked, uniqueHashcodes.add(mocked.hashCode()));
+    		assertTrue("duplicate entity #" + (i+1) + " " + mocked, uniqueEntities.add(mocked));
+    	}
+    	assertThat(uniqueURI.size(), equalTo(EXPECTED_NUMBER_OF_ENTITIES));
+    }
+    
     @Test
     public void shouldGetAllSavedEntities() {
         final int EXPECTED_NUMBER_OF_ENTITIES = new Random().nextInt(100);

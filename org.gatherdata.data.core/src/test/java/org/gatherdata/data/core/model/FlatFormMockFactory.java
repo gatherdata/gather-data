@@ -59,7 +59,7 @@ public class FlatFormMockFactory {
         mockDateValue.setForm(mockEntity);
         mockDateValue.setPath("/mock/date");
         mockDateValue.setTag("date");
-        ValueRenderer.render(dateTimeFormatter.print(new DateTime()), mockDateValue);
+        ValueRenderer.render(dateTimeFormatter.print(new DateTime().plus(rnd.nextLong())), mockDateValue);
         mockEntity.add(mockDateValue);
 
         mockEntity.selfIdentify();

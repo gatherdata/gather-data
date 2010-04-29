@@ -95,6 +95,7 @@ public class MutableFlatForm extends MutableEntity implements FlatForm {
         if (this.getUid() == null) {
         	StringBuffer formContent = new StringBuffer();
         	formContent.append(FlatForm.class.getSimpleName());
+        	formContent.append(getNamespace());
         	formContent.append(getDateCreated());
         	for (RenderedValue rv : getValues()) {
         		formContent.append(rv.toString());
@@ -103,6 +104,31 @@ public class MutableFlatForm extends MutableEntity implements FlatForm {
             setUid(selfId);
         }
         return uid;
+	}
+
+	/**
+	 * @see java.lang.Object#equals(Object)
+	 */
+	@Override
+	public boolean equals(Object object) {
+		if (!(object instanceof FlatForm)) {
+			return false;
+		}
+		FlatForm rhs = (FlatForm) object;
+		return new EqualsBuilder().append(this.getNamespace(),
+				rhs.getNamespace()).append(this.getUid(), rhs.getUid())
+				.isEquals();
+	}
+
+	/**
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		return new HashCodeBuilder(969177683, -607910761)
+			.append(this.getNamespace())
+			.append(this.getUid())
+		.toHashCode();
 	}
 	
     @Override
